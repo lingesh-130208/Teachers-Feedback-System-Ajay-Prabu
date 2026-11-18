@@ -1,0 +1,118 @@
+TEACHERS FEEDBACK SYSTEM - EXECUTION STEPS
+============================================
+
+Prerequisites:
+- JDK 17 or later installed
+- Apache Maven 3.6+ installed
+- MySQL Server 8.0+ installed and running
+
+STEP 1: Set Up MySQL Database
+-----------------------------
+1. Open MySQL Command Line or MySQL Workbench
+2. Execute the schema file:
+
+   mysql -u root -p database/schema.sql
+
+   This will:
+   - Create the TeachersFeedbackSystem database
+   - Create Student, Faculty, Admin, and Feedback tables
+   - Insert demo accounts with SHA-256 hashed passwords
+
+STEP 2: Set Environment Variables (Windows CMD)
+------------------------------------------------
+Open a new Windows Command Prompt and run:
+
+   set TFS_DB_URL=jdbc:mysql://localhost:3306/TeachersFeedbackSystem?useSSL=false&serverTimezone=UTC
+   set TFS_DB_USER=root
+   set TFS_DB_PASSWORD=your_mysql_password
+
+Replace "your_mysql_password" with your actual MySQL root password.
+
+For Linux/Mac, use:
+
+   export TFS_DB_URL=jdbc:mysql://localhost:3306/TeachersFeedbackSystem?useSSL=false&serverTimezone=UTC
+   export TFS_DB_USER=root
+   export TFS_DB_PASSWORD=your_mysql_password
+
+STEP 3: Compile the Project
+----------------------------
+In the project root directory, run:
+
+   mvn clean compile
+
+This will download dependencies (MySQL Connector/J 9.1.0) and compile
+the Java source files.
+
+STEP 4: Run the Application
+----------------------------
+To run the application:
+
+   mvn exec:java
+
+This will start the Teachers Feedback System console application.
+
+STEP 5: Demo Accounts
+----------------------
+After the application starts, you can use these demo accounts:
+
+1. Admin Login:
+   - Select option 3 from main menu
+   - Password: admin123
+
+2. Register a Student (via Admin menu):
+   - Student ID: 814725148004
+   - Name: (any name)
+   - Email: (any email)
+   - Password: student123
+
+3. Register a Faculty (via Admin menu):
+   - Faculty ID: faculty1@example.edu
+   - Name: (any name)
+   - Email: faculty1@example.edu
+   - Password: faculty123
+
+4. Student Login:
+   - Select option 1 from main menu
+   - Student ID: 814725148004
+   - Password: student123
+
+5. Faculty Login:
+   - Select option 2 from main menu
+   - Faculty ID: faculty1@example.edu
+   - Password: faculty123
+
+STEP 6: Using the Application
+------------------------------
+After logging in:
+
+STUDENT:
+- List all faculty members
+- Submit feedback for each faculty (1-5 rating, optional comments)
+- Only one feedback per faculty allowed
+
+FACULTY:
+- View anonymized average feedback report
+- See total feedback count and average rating
+
+ADMIN:
+- Add new students
+- Add new faculty members
+- List all students
+- List all faculty
+- View all faculty reports
+
+IMPORTANT SECURITY WARNING:
+===========================
+The demo passwords (admin123, student123, faculty123) and their
+SHA-256 hashes stored in database/schema.sql are FOR TESTING PURPOSES ONLY.
+
+You MUST change all demo passwords and their hashes in the database
+before deploying this application for real use.
+
+Demo Passwords in schema.sql:
+- admin -> admin123
+- student -> student123
+- faculty1 -> faculty123
+
+These hashes are generated using SHA-256. Never use these passwords
+in production environments.
